@@ -1,12 +1,25 @@
-### Beginner Tips for Setup (Based on Common Issues)
+## Beginner Troubleshooting Tips (For WSL on Windows Users)
 
-If you're new to OM1 and setting up on Windows with WSL (Ubuntu), here are some tips from my experience to avoid common problems:
+If you're a non-technical beginner setting up OM1 on Ubuntu via WSL (Windows Subsystem for Linux), here are some common issues and fixes based on real experience:
 
-- **WSL Network Issues** (e.g., "apt update" fails with "Network is unreachable"): In Windows PowerShell, run `wsl --shutdown`, then restart your terminal. This resets the network.
-- **Build Errors During `uv sync`** (e.g., "command 'cc' failed" or "portaudio.h: No such file or directory"): Install missing packages with `sudo apt install build-essential portaudio19-dev ffmpeg git python3-dev -y`.
-- **Config Syntax Errors** (e.g., "Unexpected '"' at column 29" in spot.json5): Use unquoted keys like `api_key: your_key_here`, and add commas after each line except the last. Avoid extra quotes.
-- **UI Interaction Issues** (WebSim at http://localhost:8000/): The UI is for monitoring states (e.g., "wag tail", "excited"). Use voice commands (allow mic permissions in browser/Windows) like "Hello Spot" or "What do you see?" to trigger responses. No text input box by default—voice activates the LLM and deducts credits.
-- **Credits Not Deducting**: This happens if no API calls are triggered (e.g., no interactions). After voice commands, check the portal—usage shows after 1-2 responses.
-- **Blockchain 503 Error** (e.g., "Loading rules from Ethereum blockchain failed with 503"): Often temporary due to server overload. Wait 10-15 mins and retry. Doesn't affect local virtual runs.
+### 1. Network Unreachable Error During `sudo apt update`
+- Issue: Commands like `sudo apt update` fail with "Network is unreachable".
+- Fix: Restart WSL in PowerShell (run as admin): `wsl --shutdown`. Then reopen Ubuntu and retry.
 
-These can save hours for non-technical users! For more, see the full docs at https://docs.openmind.org/developing/1_get-started.
+### 2. Build Errors During `uv sync`
+- Issue: Errors like "command 'cc' failed" or "portaudio.h: No such file or directory".
+- Fix: Install missing packages: `sudo apt install build-essential python3-dev portaudio19-dev -y`.
+
+### 3. Config Syntax Errors in spot.json5
+- Issue: Editing api_key leads to "Unexpected '"' or similar syntax errors due to quotes/commas.
+- Fix: Use unquoted keys and always add comma at end, e.g.: `api_key: "your_key_here",`. Use nano editor and double-check.
+
+### 4. No Interaction Options in WebSim UI<a href="http://localhost:8000/" target="_blank" rel="noopener noreferrer nofollow"></a>
+- Issue: UI shows state (e.g., actions/emotions) but no text box or mic button for commands.
+- Fix: Ensure mic/webcam permissions in Windows. Suggestion: Add text input in UI for fallback.
+
+### 5. Credits Not Deducted and Blockchain 503 Error
+- Issue: Portal shows $0 used; terminal logs "Loading rules from Ethereum blockchain failed with 503".
+- Fix: Interact via voice/commands to trigger API calls. 503 is temporary server issue – retry after 10-15 mins.
+
+These tips would make setup easier for beginners. Thanks!
